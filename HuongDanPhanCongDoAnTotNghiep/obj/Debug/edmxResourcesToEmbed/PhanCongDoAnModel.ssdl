@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyDoAnTotNghiepModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GiaoVien">
+    <Key>
+      <PropertyRef Name="MSGV" />
+    </Key>
+    <Property Name="MSGV" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenGV" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="NamBatDau" Type="int" />
+    <Property Name="HSThamNien" Type="float" />
+    <Property Name="HSCM" Type="int" />
+    <Property Name="HSNCKH" Type="int" />
+  </EntityType>
+  <EntityType Name="HeSoChuyenMon">
+    <Key>
+      <PropertyRef Name="HSCM" />
+    </Key>
+    <Property Name="HSCM" Type="int" Nullable="false" />
+    <Property Name="ChuyenMon" Type="nvarchar" MaxLength="50" />
+    <Property Name="KyHieu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="KetQua">
+    <Key>
+      <PropertyRef Name="MSSV" />
+      <PropertyRef Name="MSGVHD1" />
+    </Key>
+    <Property Name="MSSV" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MSGVHD1" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MSGVHD2" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NghienCuuKhoaHoc">
+    <Key>
+      <PropertyRef Name="HSNCKH" />
+    </Key>
+    <Property Name="DiemNCKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HSNCKH" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="MSSV" />
+    </Key>
+    <Property Name="MSSV" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenSV" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="Lop" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ThamNienCongTac">
+    <Key>
+      <PropertyRef Name="HSThamNien" />
+    </Key>
+    <Property Name="HSThamNien" Type="float" Nullable="false" />
+    <Property Name="Min" Type="int" />
+    <Property Name="Max" Type="int" />
+    <Property Name="KhoangTG" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_GiaoVien_HeSoChuyenMon">
+    <End Role="HeSoChuyenMon" Type="Self.HeSoChuyenMon" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeSoChuyenMon">
+        <PropertyRef Name="HSCM" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSCM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiaoVien_NghienCuuKhoaHoc">
+    <End Role="NghienCuuKhoaHoc" Type="Self.NghienCuuKhoaHoc" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NghienCuuKhoaHoc">
+        <PropertyRef Name="HSNCKH" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSNCKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiaoVien_ThamNienCongTac">
+    <End Role="ThamNienCongTac" Type="Self.ThamNienCongTac" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThamNienCongTac">
+        <PropertyRef Name="HSThamNien" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSThamNien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_GiaoVien">
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiaoVien">
+        <PropertyRef Name="MSGV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSGVHD1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_GiaoVien1">
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiaoVien">
+        <PropertyRef Name="MSGV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSGVHD2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_SinhVien">
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="MSSV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyDoAnTotNghiepModelStoreContainer">
+    <EntitySet Name="GiaoVien" EntityType="Self.GiaoVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeSoChuyenMon" EntityType="Self.HeSoChuyenMon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KetQua" EntityType="Self.KetQua" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NghienCuuKhoaHoc" EntityType="Self.NghienCuuKhoaHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThamNienCongTac" EntityType="Self.ThamNienCongTac" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_GiaoVien_HeSoChuyenMon" Association="Self.FK_GiaoVien_HeSoChuyenMon">
+      <End Role="HeSoChuyenMon" EntitySet="HeSoChuyenMon" />
+      <End Role="GiaoVien" EntitySet="GiaoVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiaoVien_NghienCuuKhoaHoc" Association="Self.FK_GiaoVien_NghienCuuKhoaHoc">
+      <End Role="NghienCuuKhoaHoc" EntitySet="NghienCuuKhoaHoc" />
+      <End Role="GiaoVien" EntitySet="GiaoVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiaoVien_ThamNienCongTac" Association="Self.FK_GiaoVien_ThamNienCongTac">
+      <End Role="ThamNienCongTac" EntitySet="ThamNienCongTac" />
+      <End Role="GiaoVien" EntitySet="GiaoVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_GiaoVien" Association="Self.FK_KetQua_GiaoVien">
+      <End Role="GiaoVien" EntitySet="GiaoVien" />
+      <End Role="KetQua" EntitySet="KetQua" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_GiaoVien1" Association="Self.FK_KetQua_GiaoVien1">
+      <End Role="GiaoVien" EntitySet="GiaoVien" />
+      <End Role="KetQua" EntitySet="KetQua" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_SinhVien" Association="Self.FK_KetQua_SinhVien">
+      <End Role="SinhVien" EntitySet="SinhVien" />
+      <End Role="KetQua" EntitySet="KetQua" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

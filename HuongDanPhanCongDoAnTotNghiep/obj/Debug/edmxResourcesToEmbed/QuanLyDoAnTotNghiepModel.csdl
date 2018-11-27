@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyDoAnTotNghiepModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="GiaoVien">
+    <Key>
+      <PropertyRef Name="MSGV" />
+    </Key>
+    <Property Name="MSGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NamBatDau" Type="Int32" />
+    <Property Name="HSThamNien" Type="Double" />
+    <Property Name="HSCM" Type="Int32" />
+    <Property Name="HSNCKH" Type="Int32" />
+    <NavigationProperty Name="HeSoChuyenMon" Relationship="Self.FK_GiaoVien_HeSoChuyenMon" FromRole="GiaoVien" ToRole="HeSoChuyenMon" />
+    <NavigationProperty Name="NghienCuuKhoaHoc" Relationship="Self.FK_GiaoVien_NghienCuuKhoaHoc" FromRole="GiaoVien" ToRole="NghienCuuKhoaHoc" />
+    <NavigationProperty Name="ThamNienCongTac" Relationship="Self.FK_GiaoVien_ThamNienCongTac" FromRole="GiaoVien" ToRole="ThamNienCongTac" />
+    <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_GiaoVien" FromRole="GiaoVien" ToRole="KetQua" />
+    <NavigationProperty Name="KetQuas1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="GiaoVien" ToRole="KetQua" />
+  </EntityType>
+  <EntityType Name="HeSoChuyenMon">
+    <Key>
+      <PropertyRef Name="HSCM" />
+    </Key>
+    <Property Name="HSCM" Type="Int32" Nullable="false" />
+    <Property Name="ChuyenMon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KyHieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GiaoViens" Relationship="Self.FK_GiaoVien_HeSoChuyenMon" FromRole="HeSoChuyenMon" ToRole="GiaoVien" />
+  </EntityType>
+  <EntityType Name="KetQua">
+    <Key>
+      <PropertyRef Name="MSSV" />
+    </Key>
+    <Property Name="MSSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MSGVHD1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MSGVHD2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GiaoVien" Relationship="Self.FK_KetQua_GiaoVien" FromRole="KetQua" ToRole="GiaoVien" />
+    <NavigationProperty Name="GiaoVien1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="KetQua" ToRole="GiaoVien" />
+    <NavigationProperty Name="SinhVien" Relationship="Self.FK_KetQua_SinhVien" FromRole="KetQua" ToRole="SinhVien" />
+  </EntityType>
+  <EntityType Name="NghienCuuKhoaHoc">
+    <Key>
+      <PropertyRef Name="HSNCKH" />
+    </Key>
+    <Property Name="DiemNCKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HSNCKH" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="GiaoViens" Relationship="Self.FK_GiaoVien_NghienCuuKhoaHoc" FromRole="NghienCuuKhoaHoc" ToRole="GiaoVien" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="MSSV" />
+    </Key>
+    <Property Name="MSSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="Lop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="KetQua" Relationship="Self.FK_KetQua_SinhVien" FromRole="SinhVien" ToRole="KetQua" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ThamNienCongTac">
+    <Key>
+      <PropertyRef Name="HSThamNien" />
+    </Key>
+    <Property Name="HSThamNien" Type="Double" Nullable="false" />
+    <Property Name="Min" Type="Int32" />
+    <Property Name="Max" Type="Int32" />
+    <Property Name="KhoangTG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GiaoViens" Relationship="Self.FK_GiaoVien_ThamNienCongTac" FromRole="ThamNienCongTac" ToRole="GiaoVien" />
+  </EntityType>
+  <Association Name="FK_GiaoVien_HeSoChuyenMon">
+    <End Role="HeSoChuyenMon" Type="Self.HeSoChuyenMon" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeSoChuyenMon">
+        <PropertyRef Name="HSCM" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSCM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiaoVien_NghienCuuKhoaHoc">
+    <End Role="NghienCuuKhoaHoc" Type="Self.NghienCuuKhoaHoc" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NghienCuuKhoaHoc">
+        <PropertyRef Name="HSNCKH" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSNCKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiaoVien_ThamNienCongTac">
+    <End Role="ThamNienCongTac" Type="Self.ThamNienCongTac" Multiplicity="0..1" />
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThamNienCongTac">
+        <PropertyRef Name="HSThamNien" />
+      </Principal>
+      <Dependent Role="GiaoVien">
+        <PropertyRef Name="HSThamNien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_GiaoVien">
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiaoVien">
+        <PropertyRef Name="MSGV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSGVHD1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_GiaoVien1">
+    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiaoVien">
+        <PropertyRef Name="MSGV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSGVHD2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KetQua_SinhVien">
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+    <End Role="KetQua" Type="Self.KetQua" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="MSSV" />
+      </Principal>
+      <Dependent Role="KetQua">
+        <PropertyRef Name="MSSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyDoAnEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
+    <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
+    <EntitySet Name="KetQuas" EntityType="Self.KetQua" />
+    <EntitySet Name="NghienCuuKhoaHocs" EntityType="Self.NghienCuuKhoaHoc" />
+    <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="ThamNienCongTacs" EntityType="Self.ThamNienCongTac" />
+    <AssociationSet Name="FK_GiaoVien_HeSoChuyenMon" Association="Self.FK_GiaoVien_HeSoChuyenMon">
+      <End Role="HeSoChuyenMon" EntitySet="HeSoChuyenMons" />
+      <End Role="GiaoVien" EntitySet="GiaoViens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiaoVien_NghienCuuKhoaHoc" Association="Self.FK_GiaoVien_NghienCuuKhoaHoc">
+      <End Role="NghienCuuKhoaHoc" EntitySet="NghienCuuKhoaHocs" />
+      <End Role="GiaoVien" EntitySet="GiaoViens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiaoVien_ThamNienCongTac" Association="Self.FK_GiaoVien_ThamNienCongTac">
+      <End Role="ThamNienCongTac" EntitySet="ThamNienCongTacs" />
+      <End Role="GiaoVien" EntitySet="GiaoViens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_GiaoVien" Association="Self.FK_KetQua_GiaoVien">
+      <End Role="GiaoVien" EntitySet="GiaoViens" />
+      <End Role="KetQua" EntitySet="KetQuas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_GiaoVien1" Association="Self.FK_KetQua_GiaoVien1">
+      <End Role="GiaoVien" EntitySet="GiaoViens" />
+      <End Role="KetQua" EntitySet="KetQuas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KetQua_SinhVien" Association="Self.FK_KetQua_SinhVien">
+      <End Role="SinhVien" EntitySet="SinhViens" />
+      <End Role="KetQua" EntitySet="KetQuas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
