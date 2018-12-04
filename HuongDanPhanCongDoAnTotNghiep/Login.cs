@@ -31,5 +31,9 @@ namespace HuongDanPhanCongDoAnTotNghiep
             }
             else MessageBox.Show("Sai tài khoản hoặc mật khẩu");
         }
+        void Close()
+        {
+            this.Close();
+        }
     }
 }

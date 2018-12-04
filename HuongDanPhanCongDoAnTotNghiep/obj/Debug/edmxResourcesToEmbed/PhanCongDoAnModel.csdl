@@ -149,7 +149,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="PhanCongDoAnEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="PhanCongDoAnTotNghiepEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
     <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
     <EntitySet Name="KetQuas" EntityType="Self.KetQua" />

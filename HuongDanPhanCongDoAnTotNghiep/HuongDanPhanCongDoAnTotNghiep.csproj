@@ -62,11 +62,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addform.cs">
+    <Compile Include="AddformGV.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Addform.Designer.cs">
-      <DependentUpon>Addform.cs</DependentUpon>
+    <Compile Include="AddformGV.Designer.cs">
+      <DependentUpon>AddformGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddformKQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddformKQ.Designer.cs">
+      <DependentUpon>AddformKQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddformSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddformSV.Designer.cs">
+      <DependentUpon>AddformSV.cs</DependentUpon>
     </Compile>
     <Compile Include="Editform.cs">
       <SubType>Form</SubType>
@@ -124,8 +136,14 @@
     <Compile Include="ThamNienCongTac.cs">
       <DependentUpon>PhanCongDoAnModel.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Addform.resx">
-      <DependentUpon>Addform.cs</DependentUpon>
+    <EmbeddedResource Include="AddformGV.resx">
+      <DependentUpon>AddformGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddformKQ.resx">
+      <DependentUpon>AddformKQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddformSV.resx">
+      <DependentUpon>AddformSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editform.resx">
       <DependentUpon>Editform.cs</DependentUpon>
@@ -193,18 +211,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PhanCongDoAnModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PhanCongDoAnModel.edmx</DependentUpon>
-      <LastGenOutput>PhanCongDoAnModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="PhanCongDoAnModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PhanCongDoAnModel.edmx</DependentUpon>
-      <LastGenOutput>PhanCongDoAnModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -232,6 +238,20 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PhanCongDoAnModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PhanCongDoAnModel.edmx</DependentUpon>
+      <LastGenOutput>PhanCongDoAnModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="PhanCongDoAnModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PhanCongDoAnModel.edmx</DependentUpon>
+      <LastGenOutput>PhanCongDoAnModel.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\connect_creating.png" />
+    <None Include="Resources\lichbieu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

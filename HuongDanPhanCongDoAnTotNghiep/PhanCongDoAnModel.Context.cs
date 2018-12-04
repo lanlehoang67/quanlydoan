@@ -13,10 +13,10 @@ namespace HuongDanPhanCongDoAnTotNghiep
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PhanCongDoAnEntities : DbContext
+    public partial class PhanCongDoAnTotNghiepEntities : DbContext
     {
-        public PhanCongDoAnEntities()
-            : base("name=PhanCongDoAnEntities")
+        public PhanCongDoAnTotNghiepEntities()
+            : base("name=PhanCongDoAnTotNghiepEntities")
         {
         }
     

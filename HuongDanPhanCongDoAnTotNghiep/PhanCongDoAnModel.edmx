@@ -329,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PhanCongDoAnEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PhanCongDoAnTotNghiepEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
           <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
           <EntitySet Name="KetQuas" EntityType="Self.KetQua" />
@@ -367,7 +367,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="PhanCongDoAnEntities">
+        <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="PhanCongDoAnTotNghiepEntities">
           <EntitySetMapping Name="GiaoViens">
             <EntityTypeMapping TypeName="QuanLyDoAnTotNghiepModel.GiaoVien">
               <MappingFragment StoreEntitySet="GiaoVien">

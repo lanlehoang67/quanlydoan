@@ -18,6 +18,8 @@ namespace HuongDanPhanCongDoAnTotNghiep
 {
     public partial class Form1 : Form
     {
+        public delegate void CloseForm();
+        public CloseForm Close;
         bool imported = false;
         struct DataParameter
         {
@@ -38,7 +40,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
             groupBox1.Text = "Danh sách lớp";
             groupBox2.Visible = true;
             groupBox2.Text = "Danh sách sinh viên";
-            using (PhanCongDoAnEntities db = new PhanCongDoAnEntities())
+            using (PhanCongDoAnTotNghiepEntities db = new PhanCongDoAnTotNghiepEntities())
             {
                 var query = from p in db.KetQuas.OrderBy(k => k.SinhVien.TenSV)
                             select new
@@ -76,7 +78,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
             groupBox1.Text = "Danh sách chuyên môn";
             groupBox2.Visible = true;
             groupBox2.Text = "Danh sách giảng viên";
-            using (PhanCongDoAnEntities db = new PhanCongDoAnEntities())
+            using (PhanCongDoAnTotNghiepEntities db = new PhanCongDoAnTotNghiepEntities())
             {
                 var query = from p in db.GiaoViens.OrderBy(k => k.TenGV)
                             select new
@@ -114,6 +116,44 @@ namespace HuongDanPhanCongDoAnTotNghiep
 
             }
         }
+        void ShowKQ()
+        {
+            listBox1.Items.Clear();
+            groupBox1.Visible = true;
+            groupBox1.Text = "Danh sách giảng viên";
+            groupBox2.Visible = true;
+            groupBox2.Text = "Kết quả";
+            using (PhanCongDoAnTotNghiepEntities db = new PhanCongDoAnTotNghiepEntities())
+            {
+                var query = from p in db.KetQuas
+                            select new
+                            {
+                                p.SinhVien.MSSV,
+                                p.SinhVien.TenSV,
+                                
+                                TENGV= p.GiaoVien.TenGV,
+                               
+                                TENGV2=p.GiaoVien1.TenGV
+                            };
+                var query2 = from p in db.GiaoViens.OrderBy(k => k.TenGV)
+                             select p.TenGV;
+                foreach (var item in query2.ToList())
+                {
+                    if (listBox1.FindStringExact(item.ToString()) < 0)
+                    {
+                        listBox1.Items.Add(item.ToString());
+                    }
+                }
+                dataGridView1.DataSource = query.ToList();
+                dataGridView1.Columns[0].HeaderText = "MSSV";
+                dataGridView1.Columns[1].HeaderText = "Họ và tên";
+               
+                dataGridView1.Columns[2].HeaderText = "Tên GVHD1";
+                
+                dataGridView1.Columns[3].HeaderText = "Tên GVHD2";
+              
+            }
+        }
         private void tsStudent_Click(object sender, EventArgs e)
         {
             Show1();
@@ -123,6 +163,10 @@ namespace HuongDanPhanCongDoAnTotNghiep
         private void tsTeacher_Click(object sender, EventArgs e)
         {
             Show2();
+        }
+        private void tsResult_Click(object sender, EventArgs e)
+        {
+            ShowKQ();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,10 +232,24 @@ namespace HuongDanPhanCongDoAnTotNghiep
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Addform af = new Addform();
+            if (groupBox2.Text == "Danh sách sinh viên")
+            {
+                AddformSV af = new AddformSV();
 
-            af.Show();
-            af.ShowForm += Show1;
+                af.Show();
+                af.ShowForm += Show1;
+            }
+            else if(groupBox2.Text == "Danh sách giảng viên")
+            {
+                AddformGV gv = new AddformGV();
+                gv.Show();
+                
+            }
+            else if(groupBox2.Text == "Kết quả")
+            {
+                AddformKQ kq = new AddformKQ();
+                kq.Show();
+            }
         }
 
         private void btnFix_Click(object sender, EventArgs e)
@@ -215,7 +273,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
                     string deleteMSSV = dataGridView1.Rows[index].Cells[0].Value.ToString();
 
 
-                    using (PhanCongDoAnEntities db = new PhanCongDoAnEntities())
+                    using (PhanCongDoAnTotNghiepEntities db = new PhanCongDoAnTotNghiepEntities())
                     {
                         SinhVien deleteSV = db.SinhViens.SingleOrDefault(p => p.MSSV == deleteMSSV);
                         KetQua deleteKq = db.KetQuas.SingleOrDefault(p => p.MSSV == deleteMSSV);
@@ -329,21 +387,16 @@ namespace HuongDanPhanCongDoAnTotNghiep
             ws.SaveAs(fileName, XlFileFormat.xlWorkbookDefault, Type.Missing, true, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
             excel.Quit();
         }
+        
 
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
-            label1.Text = string.Format("Processing...{0}", e.ProgressPercentage);
-            progressBar1.Update();
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error == null)
+            if (Close != null)
             {
-                Thread.Sleep(100);
-                label1.Text = "Your data has been successfully exported.";
+                Close();
             }
         }
+
+        
     }
 }

@@ -83,6 +83,16 @@ namespace HuongDanPhanCongDoAnTotNghiep.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap connect_creating {
+            get {
+                object obj = ResourceManager.GetObject("connect_creating", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap decrypted {
             get {
                 object obj = ResourceManager.GetObject("decrypted", resourceCulture);
@@ -106,6 +116,16 @@ namespace HuongDanPhanCongDoAnTotNghiep.Properties {
         internal static System.Drawing.Bitmap filesave {
             get {
                 object obj = ResourceManager.GetObject("filesave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap lichbieu {
+            get {
+                object obj = ResourceManager.GetObject("lichbieu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

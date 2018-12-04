@@ -19,3 +19,26 @@ C:\Users\lehoanglan\source\repos\HuongDanPhanCongDoAnTotNghiep\HuongDanPhanCongD
 C:\Users\lehoanglan\source\repos\HuongDanPhanCongDoAnTotNghiep\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csproj.ResolveComReference.cache
 C:\Users\lehoanglan\source\repos\HuongDanPhanCongDoAnTotNghiep\HuongDanPhanCongDoAnTotNghiep\bin\Debug\Excel.dll
 C:\Users\lehoanglan\source\repos\HuongDanPhanCongDoAnTotNghiep\HuongDanPhanCongDoAnTotNghiep\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\HuongDanPhanCongDoAnTotNghiep.exe.config
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\HuongDanPhanCongDoAnTotNghiep.exe
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\HuongDanPhanCongDoAnTotNghiep.pdb
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\EntityFramework.dll
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\EntityFramework.SqlServer.dll
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\Excel.dll
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\EntityFramework.xml
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\bin\Debug\EntityFramework.SqlServer.xml
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csprojAssemblyReference.cache
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csproj.ResolveComReference.cache
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.Editform.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.Form1.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.Login.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.Properties.Resources.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csproj.GenerateResource.cache
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csproj.CoreCompileInputs.cache
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.csproj.CopyComplete
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.exe
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.pdb
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.AddformGV.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.AddformSV.resources
+D:\New folder\quanlydoan-master\HuongDanPhanCongDoAnTotNghiep\obj\Debug\HuongDanPhanCongDoAnTotNghiep.AddformKQ.resources
