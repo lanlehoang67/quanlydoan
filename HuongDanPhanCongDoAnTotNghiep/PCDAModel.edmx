@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLyDoAnTotNghiepModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuanLyDoAnTotNghiepModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GiaoVien">
           <Key>
             <PropertyRef Name="MSGV" />
@@ -50,6 +50,7 @@
           <Property Name="TenSV" Type="nvarchar" MaxLength="50" />
           <Property Name="NgaySinh" Type="date" />
           <Property Name="Lop" Type="nvarchar" MaxLength="50" />
+          <Property Name="MSGV" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -175,8 +176,7 @@
             <End Role="KetQua" EntitySet="KetQua" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyDoAnTotNghiepModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -195,8 +195,8 @@
           <NavigationProperty Name="HeSoChuyenMon" Relationship="Self.FK_GiaoVien_HeSoChuyenMon" FromRole="GiaoVien" ToRole="HeSoChuyenMon" />
           <NavigationProperty Name="NghienCuuKhoaHoc" Relationship="Self.FK_GiaoVien_NghienCuuKhoaHoc" FromRole="GiaoVien" ToRole="NghienCuuKhoaHoc" />
           <NavigationProperty Name="ThamNienCongTac" Relationship="Self.FK_GiaoVien_ThamNienCongTac" FromRole="GiaoVien" ToRole="ThamNienCongTac" />
-          <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_GiaoVien" FromRole="GiaoVien" ToRole="KetQua" />
-          <NavigationProperty Name="KetQuas1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="GiaoVien" ToRole="KetQua" />
+          <NavigationProperty Name="KetQuas" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien" FromRole="GiaoVien" ToRole="KetQua" />
+          <NavigationProperty Name="KetQuas1" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien1" FromRole="GiaoVien" ToRole="KetQua" />
         </EntityType>
         <EntityType Name="HeSoChuyenMon">
           <Key>
@@ -215,9 +215,9 @@
           <Property Name="MSSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MSGVHD1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MSGVHD2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GiaoVien" Relationship="Self.FK_KetQua_GiaoVien" FromRole="KetQua" ToRole="GiaoVien" />
-          <NavigationProperty Name="GiaoVien1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="KetQua" ToRole="GiaoVien" />
-          <NavigationProperty Name="SinhVien" Relationship="Self.FK_KetQua_SinhVien" FromRole="KetQua" ToRole="SinhVien" />
+          <NavigationProperty Name="GiaoVien" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien" FromRole="KetQua" ToRole="GiaoVien" />
+          <NavigationProperty Name="GiaoVien1" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien1" FromRole="KetQua" ToRole="GiaoVien" />
+          <NavigationProperty Name="SinhVien" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_SinhVien" FromRole="KetQua" ToRole="SinhVien" />
         </EntityType>
         <EntityType Name="NghienCuuKhoaHoc">
           <Key>
@@ -235,7 +235,8 @@
           <Property Name="TenSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Lop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_SinhVien" FromRole="SinhVien" ToRole="KetQua" />
+          <Property Name="MSGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KetQuas" Relationship="QuanLyDoAnTotNghiepModel.FK_KetQua_SinhVien" FromRole="SinhVien" ToRole="KetQua" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -293,43 +294,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_KetQua_GiaoVien">
-          <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="1" />
-          <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MSGV" />
-            </Principal>
-            <Dependent Role="KetQua">
-              <PropertyRef Name="MSGVHD1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KetQua_GiaoVien1">
-          <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
-          <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MSGV" />
-            </Principal>
-            <Dependent Role="KetQua">
-              <PropertyRef Name="MSGVHD2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KetQua_SinhVien">
-          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
-          <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SinhVien">
-              <PropertyRef Name="MSSV" />
-            </Principal>
-            <Dependent Role="KetQua">
-              <PropertyRef Name="MSSV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PhanCongDoAnTotNghiepEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PCDAEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
           <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
           <EntitySet Name="KetQuas" EntityType="Self.KetQua" />
@@ -349,25 +314,61 @@
             <End Role="ThamNienCongTac" EntitySet="ThamNienCongTacs" />
             <End Role="GiaoVien" EntitySet="GiaoViens" />
           </AssociationSet>
-          <AssociationSet Name="FK_KetQua_GiaoVien" Association="Self.FK_KetQua_GiaoVien">
+          <AssociationSet Name="FK_KetQua_GiaoVien" Association="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien">
             <End Role="GiaoVien" EntitySet="GiaoViens" />
             <End Role="KetQua" EntitySet="KetQuas" />
           </AssociationSet>
-          <AssociationSet Name="FK_KetQua_GiaoVien1" Association="Self.FK_KetQua_GiaoVien1">
+          <AssociationSet Name="FK_KetQua_GiaoVien1" Association="QuanLyDoAnTotNghiepModel.FK_KetQua_GiaoVien1">
             <End Role="GiaoVien" EntitySet="GiaoViens" />
             <End Role="KetQua" EntitySet="KetQuas" />
           </AssociationSet>
-          <AssociationSet Name="FK_KetQua_SinhVien" Association="Self.FK_KetQua_SinhVien">
+          <AssociationSet Name="FK_KetQua_SinhVien" Association="QuanLyDoAnTotNghiepModel.FK_KetQua_SinhVien">
             <End Role="SinhVien" EntitySet="SinhViens" />
             <End Role="KetQua" EntitySet="KetQuas" />
           </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_KetQua_GiaoVien">
+          <End Type="QuanLyDoAnTotNghiepModel.GiaoVien" Role="GiaoVien" Multiplicity="1" />
+          <End Type="QuanLyDoAnTotNghiepModel.KetQua" Role="KetQua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MSGV" />
+            </Principal>
+            <Dependent Role="KetQua">
+              <PropertyRef Name="MSGVHD1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KetQua_GiaoVien1">
+          <End Type="QuanLyDoAnTotNghiepModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
+          <End Type="QuanLyDoAnTotNghiepModel.KetQua" Role="KetQua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MSGV" />
+            </Principal>
+            <Dependent Role="KetQua">
+              <PropertyRef Name="MSGVHD2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KetQua_SinhVien">
+          <End Type="QuanLyDoAnTotNghiepModel.SinhVien" Role="SinhVien" Multiplicity="1" />
+          <End Type="QuanLyDoAnTotNghiepModel.KetQua" Role="KetQua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="MSSV" />
+            </Principal>
+            <Dependent Role="KetQua">
+              <PropertyRef Name="MSSV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="PhanCongDoAnTotNghiepEntities">
+        <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="PCDAEntities">
           <EntitySetMapping Name="GiaoViens">
             <EntityTypeMapping TypeName="QuanLyDoAnTotNghiepModel.GiaoVien">
               <MappingFragment StoreEntitySet="GiaoVien">
@@ -415,6 +416,7 @@
                 <ScalarProperty Name="TenSV" ColumnName="TenSV" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="Lop" ColumnName="Lop" />
+                <ScalarProperty Name="MSGV" ColumnName="MSGV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

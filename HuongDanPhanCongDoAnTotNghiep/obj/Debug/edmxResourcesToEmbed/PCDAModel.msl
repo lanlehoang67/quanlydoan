@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="HDDoAnEntities">
+  <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="PCDAEntities">
     <EntitySetMapping Name="GiaoViens">
       <EntityTypeMapping TypeName="QuanLyDoAnTotNghiepModel.GiaoVien">
         <MappingFragment StoreEntitySet="GiaoVien">
@@ -48,6 +48,7 @@
           <ScalarProperty Name="TenSV" ColumnName="TenSV" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="Lop" ColumnName="Lop" />
+          <ScalarProperty Name="MSGV" ColumnName="MSGV" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

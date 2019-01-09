@@ -13,11 +13,12 @@ namespace HuongDanPhanCongDoAnTotNghiep
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PhanCongDoAnTotNghiepEntities : DbContext
+    public partial class PCDAEntities : DbContext
     {
-        public PhanCongDoAnTotNghiepEntities()
-            : base("name=PhanCongDoAnTotNghiepEntities")
+        public PCDAEntities()
+            : base("name=PCDAEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

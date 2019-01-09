@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="HDDoAnEntities">
+  <EntityContainerMapping StorageEntityContainer="QuanLyDoAnTotNghiepModelStoreContainer" CdmEntityContainer="QLDAEntities">
     <EntitySetMapping Name="GiaoViens">
       <EntityTypeMapping TypeName="QuanLyDoAnTotNghiepModel.GiaoVien">
         <MappingFragment StoreEntitySet="GiaoVien">
+          <ScalarProperty Name="NamBatDau" ColumnName="NamBatDau" />
           <ScalarProperty Name="MSGV" ColumnName="MSGV" />
           <ScalarProperty Name="TenGV" ColumnName="TenGV" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="NamBatDau" ColumnName="NamBatDau" />
           <ScalarProperty Name="HSThamNien" ColumnName="HSThamNien" />
           <ScalarProperty Name="HSCM" ColumnName="HSCM" />
           <ScalarProperty Name="HSNCKH" ColumnName="HSNCKH" />
@@ -44,6 +44,7 @@
     <EntitySetMapping Name="SinhViens">
       <EntityTypeMapping TypeName="QuanLyDoAnTotNghiepModel.SinhVien">
         <MappingFragment StoreEntitySet="SinhVien">
+          <ScalarProperty Name="MSGV" ColumnName="MSGV" />
           <ScalarProperty Name="MSSV" ColumnName="MSSV" />
           <ScalarProperty Name="TenSV" ColumnName="TenSV" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />

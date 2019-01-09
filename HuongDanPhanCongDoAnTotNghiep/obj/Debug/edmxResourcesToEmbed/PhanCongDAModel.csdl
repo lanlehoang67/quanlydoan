@@ -56,6 +56,7 @@
     <Property Name="NgaySinh" Type="DateTime" Precision="0" />
     <Property Name="Lop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_SinhVien" FromRole="SinhVien" ToRole="KetQua" />
+    <Property Name="MSGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -149,7 +150,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="HDDoAnEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QuanLyDoAnTotNghiepEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
     <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
     <EntitySet Name="KetQuas" EntityType="Self.KetQua" />

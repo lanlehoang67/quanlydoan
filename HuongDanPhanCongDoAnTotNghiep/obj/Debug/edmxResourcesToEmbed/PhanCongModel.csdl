@@ -8,15 +8,13 @@
     <Property Name="TenGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="NamBatDau" Type="Int32" />
     <Property Name="HSThamNien" Type="Double" />
     <Property Name="HSCM" Type="Int32" />
     <Property Name="HSNCKH" Type="Int32" />
     <NavigationProperty Name="HeSoChuyenMon" Relationship="Self.FK_GiaoVien_HeSoChuyenMon" FromRole="GiaoVien" ToRole="HeSoChuyenMon" />
     <NavigationProperty Name="NghienCuuKhoaHoc" Relationship="Self.FK_GiaoVien_NghienCuuKhoaHoc" FromRole="GiaoVien" ToRole="NghienCuuKhoaHoc" />
     <NavigationProperty Name="ThamNienCongTac" Relationship="Self.FK_GiaoVien_ThamNienCongTac" FromRole="GiaoVien" ToRole="ThamNienCongTac" />
-    <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_GiaoVien" FromRole="GiaoVien" ToRole="KetQua" />
-    <NavigationProperty Name="KetQuas1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="GiaoVien" ToRole="KetQua" />
+    <Property Name="NamBatDau" Type="Int32" />
   </EntityType>
   <EntityType Name="HeSoChuyenMon">
     <Key>
@@ -30,14 +28,10 @@
   <EntityType Name="KetQua">
     <Key>
       <PropertyRef Name="MSSV" />
-      <PropertyRef Name="MSGVHD1" />
     </Key>
     <Property Name="MSSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MSGVHD1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MSGVHD2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="GiaoVien" Relationship="Self.FK_KetQua_GiaoVien" FromRole="KetQua" ToRole="GiaoVien" />
-    <NavigationProperty Name="GiaoVien1" Relationship="Self.FK_KetQua_GiaoVien1" FromRole="KetQua" ToRole="GiaoVien" />
-    <NavigationProperty Name="SinhVien" Relationship="Self.FK_KetQua_SinhVien" FromRole="KetQua" ToRole="SinhVien" />
   </EntityType>
   <EntityType Name="NghienCuuKhoaHoc">
     <Key>
@@ -55,7 +49,7 @@
     <Property Name="TenSV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NgaySinh" Type="DateTime" Precision="0" />
     <Property Name="Lop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="KetQuas" Relationship="Self.FK_KetQua_SinhVien" FromRole="SinhVien" ToRole="KetQua" />
+    <Property Name="MSGV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -113,43 +107,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_KetQua_GiaoVien">
-    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="1" />
-    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GiaoVien">
-        <PropertyRef Name="MSGV" />
-      </Principal>
-      <Dependent Role="KetQua">
-        <PropertyRef Name="MSGVHD1" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_KetQua_GiaoVien1">
-    <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
-    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GiaoVien">
-        <PropertyRef Name="MSGV" />
-      </Principal>
-      <Dependent Role="KetQua">
-        <PropertyRef Name="MSGVHD2" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_KetQua_SinhVien">
-    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
-    <End Role="KetQua" Type="Self.KetQua" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SinhVien">
-        <PropertyRef Name="MSSV" />
-      </Principal>
-      <Dependent Role="KetQua">
-        <PropertyRef Name="MSSV" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="HDDoAnEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QLDAEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
     <EntitySet Name="HeSoChuyenMons" EntityType="Self.HeSoChuyenMon" />
     <EntitySet Name="KetQuas" EntityType="Self.KetQua" />
@@ -168,18 +126,6 @@
     <AssociationSet Name="FK_GiaoVien_ThamNienCongTac" Association="Self.FK_GiaoVien_ThamNienCongTac">
       <End Role="ThamNienCongTac" EntitySet="ThamNienCongTacs" />
       <End Role="GiaoVien" EntitySet="GiaoViens" />
-    </AssociationSet>
-    <AssociationSet Name="FK_KetQua_GiaoVien" Association="Self.FK_KetQua_GiaoVien">
-      <End Role="GiaoVien" EntitySet="GiaoViens" />
-      <End Role="KetQua" EntitySet="KetQuas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_KetQua_GiaoVien1" Association="Self.FK_KetQua_GiaoVien1">
-      <End Role="GiaoVien" EntitySet="GiaoViens" />
-      <End Role="KetQua" EntitySet="KetQuas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_KetQua_SinhVien" Association="Self.FK_KetQua_SinhVien">
-      <End Role="SinhVien" EntitySet="SinhViens" />
-      <End Role="KetQua" EntitySet="KetQuas" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

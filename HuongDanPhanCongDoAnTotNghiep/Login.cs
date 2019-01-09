@@ -23,9 +23,17 @@ namespace HuongDanPhanCongDoAnTotNghiep
         {
             if (txbTK.Text == "admin" && txbMK.Text == "123456")
             {
-                MessageBox.Show("Login Success");
+                MessageBox.Show("Admin Login Success");
                
-                Form1 f = new Form1();
+                Form1 f = new Form1("admin");
+                f.Show();
+                this.Hide();
+            }
+            else if(txbTK.Text == "user" && txbMK.Text == "123456")
+            {
+                MessageBox.Show("User Login Success");
+
+                Form1 f = new Form1("user");
                 f.Show();
                 this.Hide();
             }
@@ -34,6 +42,16 @@ namespace HuongDanPhanCongDoAnTotNghiep
         void Close()
         {
             this.Close();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(1);
+        }
+
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(1);
         }
     }
 }

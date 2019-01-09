@@ -17,14 +17,13 @@ namespace HuongDanPhanCongDoAnTotNghiep
         public AddformSV()
         {
             InitializeComponent();
-           
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         void Add()
         {
-            using (PhanCongDoAnTotNghiepEntities db = new PhanCongDoAnTotNghiepEntities())
+            using (PCDAEntities db = new PCDAEntities())
             {
-                try
-                {
+              
                     SinhVien sv = new SinhVien
                     {
                         MSSV = txbMSSV.Text,
@@ -33,12 +32,12 @@ namespace HuongDanPhanCongDoAnTotNghiep
                         Lop = txbClass.Text,
 
                     };
-      
+                   
                     db.SinhViens.Add(sv);
                    
                     db.SaveChanges();
-                }
-                catch { }
+                
+                
                 if (ShowForm != null)
                 {
                     ShowForm();
@@ -46,14 +45,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
             }
         }
       
-        public string GetMSGV(string tengv)
-        {
-            using(PhanCongDoAnTotNghiepEntities db=new PhanCongDoAnTotNghiepEntities())
-            {
-                var query = db.GiaoViens.SingleOrDefault(p => p.TenGV == tengv).MSGV;
-                return query.ToString();
-            }
-        }
+       
         private void btnOK_Click(object sender, EventArgs e)
         {
             Add();
