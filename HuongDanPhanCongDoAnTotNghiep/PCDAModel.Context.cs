@@ -18,7 +18,6 @@ namespace HuongDanPhanCongDoAnTotNghiep
         public PCDAEntities()
             : base("name=PCDAEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -14,8 +14,8 @@ namespace HuongDanPhanCongDoAnTotNghiep
 {
     public partial class EditformSV : Form
     {
-       
-        
+
+
 
         public delegate void CheckShow();
 
@@ -39,13 +39,29 @@ namespace HuongDanPhanCongDoAnTotNghiep
         }
         void LoadData()
         {
-            using(PCDAEntities db = new PCDAEntities())
+            using (PCDAEntities db = new PCDAEntities())
             {
-                SinhVien sv = db.SinhViens.SingleOrDefault(p => p.MSSV == lbMSSV.Text);
-                txbClass.Text = sv.Lop;
-                txbName.Text = sv.TenSV;
-                dateTimePicker1.Value =(DateTime) sv.NgaySinh;
+                try
+                {
+                    SinhVien sv = db.SinhViens.SingleOrDefault(p => p.MSSV == lbMSSV.Text);
+                    txbClass.Text = sv.Lop;
+                    txbName.Text = sv.TenSV;
+                    dateTimePicker1.Value = (DateTime)sv.NgaySinh;
+                }
+                catch { }
             }
+        }
+        bool Check()
+        {
+            int result;
+            if (txbName.Text.Length < 3 || txbMSSV.Text.Length < 3)
+            {
+                MessageBox.Show("length must be >3");
+                return false;
+
+            }
+
+            return true;
         }
         void Update1()
         {
@@ -55,29 +71,25 @@ namespace HuongDanPhanCongDoAnTotNghiep
 
                 if (sv != null)
                 {
-                    
-                    sv.TenSV = txbName.Text;
-                    sv.NgaySinh = (DateTime)dateTimePicker1.Value;
-                    sv.Lop = txbClass.Text;
-                    db.SaveChanges();
-                    if (ShowForm != null)
+
+
+                    if (Check() == true)
                     {
-                        ShowForm();
+
+                        sv.TenSV = txbName.Text;
+                        sv.NgaySinh = (DateTime)dateTimePicker1.Value;
+                        sv.Lop = txbClass.Text;
+                        db.SaveChanges();
+                        if (ShowForm != null)
+                        {
+                            ShowForm();
+                        }
+                        lbMSSV.Text = txbMSSV.Text;
+                        this.Close();
                     }
-                    lbMSSV.Text = txbMSSV.Text;
                 }
             }
         }
-
-
-
-
-
-       
-
-        
-
-       
 
         private void btnCancel_Click_1(object sender, EventArgs e)
         {
@@ -87,7 +99,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
         private void btnOK_Click(object sender, EventArgs e)
         {
             Update1();
-            this.Close();
+
         }
     }
 

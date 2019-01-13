@@ -359,104 +359,101 @@ namespace HuongDanPhanCongDoAnTotNghiep
 
         private void btnFix_Click(object sender, EventArgs e)
         {
-            if (groupBox2.Text == "Danh sách sinh viên")
+            try
             {
-                EditformSV efsv = new EditformSV(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                efsv.Show();
-                efsv.ShowForm += Show1;
+                if (groupBox2.Text == "Danh sách sinh viên")
+                {
+                    EditformSV efsv = new EditformSV(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    efsv.Show();
+                    efsv.ShowForm += Show1;
+                }
+                else if (groupBox2.Text == "Danh sách giảng viên")
+                {
+                    EditformGV efgv = new EditformGV(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    efgv.Show();
+                    efgv.ShowForm += Show2;
+                }
             }
-            else if (groupBox2.Text == "Danh sách giảng viên")
-            {
-                EditformGV efgv = new EditformGV(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                efgv.Show();
-                efgv.ShowForm += Show2;
-            }
+            catch { }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows != null)
+            try
             {
-                List<int> listIndex = new List<int>();
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                if (dataGridView1.SelectedRows != null)
                 {
-                    listIndex.Add(row.Index);
-                }
-                if (groupBox2.Text == "Danh sách sinh viên")
-                {
-                    foreach (int index in listIndex)
+                    List<int> listIndex = new List<int>();
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                     {
-                        string deleteMSSV = dataGridView1.Rows[index].Cells[0].Value.ToString();
-
-
-                        using (PCDAEntities db = new PCDAEntities())
+                        listIndex.Add(row.Index);
+                    }
+                    if (groupBox2.Text == "Danh sách sinh viên")
+                    {
+                        foreach (int index in listIndex)
                         {
+                            string deleteMSSV = dataGridView1.Rows[index].Cells[0].Value.ToString();
 
-                            SinhVien deleteSV = db.SinhViens.SingleOrDefault(p => p.MSSV == deleteMSSV);
+
+                            using (PCDAEntities db = new PCDAEntities())
+                            {
+
+                                SinhVien deleteSV = db.SinhViens.SingleOrDefault(p => p.MSSV == deleteMSSV);
 
 
-                            db.SinhViens.Remove(deleteSV);
-                            db.SaveChanges();
-                            Show1();
+                                db.SinhViens.Remove(deleteSV);
+                                db.SaveChanges();
+                                Show1();
+                            }
                         }
                     }
-                }
-                else if (groupBox2.Text == "Danh sách giảng viên")
-                {
-                    foreach (int index in listIndex)
+                    else if (groupBox2.Text == "Danh sách giảng viên")
                     {
-                        string deleteMSGV = dataGridView1.Rows[index].Cells[0].Value.ToString();
-
-
-                        using (PCDAEntities db = new PCDAEntities())
+                        foreach (int index in listIndex)
                         {
+                            string deleteMSGV = dataGridView1.Rows[index].Cells[0].Value.ToString();
 
-                            GiaoVien deleteGV = db.GiaoViens.SingleOrDefault(p => p.MSGV == deleteMSGV);
+
+                            using (PCDAEntities db = new PCDAEntities())
+                            {
+
+                                GiaoVien deleteGV = db.GiaoViens.SingleOrDefault(p => p.MSGV == deleteMSGV);
 
 
-                            db.GiaoViens.Remove(deleteGV);
-                            db.SaveChanges();
-                            Show2();
+                                db.GiaoViens.Remove(deleteGV);
+                                db.SaveChanges();
+                                Show2();
+                            }
                         }
                     }
                 }
             }
-
+            catch { }
         }
         DataSet result;
+        Nullable<DateTime> ConvertToDateTime(string nam)
+        {
+            DateTime testDate;
+            if(nam == "" || DateTime.TryParse(nam,out testDate)==false)
+            {
+                return null;
+            }
+            return DateTime.Parse(nam);
+        }
+        Nullable<int> ConvertToInt(string namBatDau)
+        {
+            int test;
+            if (namBatDau == "" || int.TryParse(namBatDau,out test)==false)
+            {
+                return null;
+            }
+            return int.Parse(namBatDau);
+        }
         private void tsOpenFile_Click(object sender, EventArgs e)
         {
-
-            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel 97-2003|*.xls|Excel Workbook|*.xlsx", ValidateNames = true })
+            int i = 0;
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx|Excel 97-2003|*.xls", ValidateNames = true })
             {
-                //if (ofd.ShowDialog() == DialogResult.OK)
-                //{
-                //    FileStream fs = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read);
-                //    IExcelDataReader reader;
-                //    if (ofd.FilterIndex == 1)
-                //    {
-                //        reader = ExcelReaderFactory.CreateBinaryReader(fs);
-                //    }
-                //    else
-                //    {
-                //        reader = ExcelReaderFactory.CreateOpenXmlReader(fs);
-                //    }
-                //    reader.IsFirstRowAsColumnNames = true;
-                //    result = reader.AsDataSet();
-                //    listBox1.Items.Clear();
-                //    foreach (System.Data.DataTable dt in result.Tables)
-                //    {
-                //        listBox1.Items.Add(dt.TableName);
-                //    }
-                //    if (reader.IsValid)
-                //    {
-                //        groupBox1.Visible = true;
-                //        groupBox2.Visible = true;
-                //        imported = true;
-                //        dataGridView1.DataSource = result.Tables[listBox1.SelectedIndex + 1];
-                //    }
-                //    reader.Close();
-                //}
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
                     FileStream stream = new FileStream(ofd.FileName, FileMode.Open);
@@ -466,16 +463,98 @@ namespace HuongDanPhanCongDoAnTotNghiep
                     {
                        foreach(System.Data.DataTable table in result.Tables)
                         {
-                            foreach(DataRow dr in table.Rows)
+                            
+                            
+                            foreach (DataRow dr in table.Rows)
                             {
-                                if (dr[4].ToString() == "GVHD") continue;
-                                KetQua kq = new KetQua
+                               
+                                if (dr.Table.Columns.Count==4 &&  dr[0].ToString() == "MSSV" || dr.Table.Columns[0].ColumnName == "MSSV"  )
                                 {
-                                    MSSV = dr[0].ToString(),
-                                    MSGVHD1 = GetMSGV(dr[4].ToString())
-                                };
-                                db.KetQuas.Add(kq);
-                                db.SaveChanges();
+                                    dr.Table.Columns[0].ColumnName = "MSSV";
+                                    if (i == 0)
+                                    {
+                                        i++;
+                                        continue;
+                                    }
+                                   
+                                    SinhVien sv = new SinhVien
+                                    {
+                                        MSSV = dr[0].ToString(),
+                                        TenSV = dr[1].ToString(),
+                                        Lop = dr[2].ToString(),
+                                        NgaySinh = ConvertToDateTime((dr[3].ToString()))
+                                    };
+                                    SinhVien svTest = db.SinhViens.SingleOrDefault(p => p.MSSV == sv.MSSV);
+                                    if (svTest == null)
+                                    {
+                                        db.SinhViens.Add(sv);
+                                        db.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        db.Entry(svTest).CurrentValues.SetValues(sv);
+                                        db.SaveChanges();
+                                    }
+
+                                }
+                                else if ( dr[4].ToString() =="GVHD" || dr.Table.Columns[4].ColumnName == "GVHD")
+                                {
+                                    dr.Table.Columns[4].ColumnName = "GVHD";
+                                    if (dr[4].ToString()=="GVHD")
+                                    {       
+                                        continue;
+                                    }
+                                  
+                                    KetQua kq = new KetQua
+                                    {
+                                        MSSV = dr[0].ToString(),
+                                        MSGVHD1 = GetMSGV(dr[4].ToString())
+                                    };
+                                    KetQua kqTest = db.KetQuas.SingleOrDefault(p => p.MSSV == kq.MSSV);
+                                    if (kqTest == null)
+                                    {
+                                        db.KetQuas.Add(kq);
+                                        db.SaveChanges();
+                                    }                            
+                                   
+                                }
+                                else if(dr[8].ToString() == "Tổng điểm" || dr.Table.Columns[8].ColumnName == "Tổng điểm")
+                                {
+                                    dr.Table.Columns[8].ColumnName = "Tổng điểm";
+                                    if (i == 0)
+                                    {
+                                        i++;
+                                        continue;
+                                    }
+
+                                    
+                                    GiaoVien gv = new GiaoVien
+                                    {
+                                        MSGV = dr[0].ToString(),
+                                        TenGV = dr[1].ToString(),
+                                        SDT = dr[2].ToString(),
+                                        Email = dr[3].ToString(),
+                                        NamBatDau = ConvertToInt((dr[4].ToString())),
+                                        HSThamNien = Convert.ToDouble((dr[5].ToString())),
+                                        HSCM = Convert.ToInt32((dr[6].ToString())),
+                                        HSNCKH = Convert.ToInt32((dr[7].ToString()))
+                                        
+                                    };
+                                    GiaoVien gvTest = db.GiaoViens.SingleOrDefault(p => p.MSGV == gv.MSGV);
+                                    if (gvTest==null)
+                                    {
+                                        db.GiaoViens.Add(gv);
+                                        db.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        db.Entry(gvTest).CurrentValues.SetValues(gv);
+                                        db.SaveChanges();
+                                    }
+
+                                }
+                                
+                                
                             }
                         }
                     }
@@ -493,68 +572,100 @@ namespace HuongDanPhanCongDoAnTotNghiep
 
         private void tsExportFile_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook Workbooks = app.Workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
-
-            List<string> tenLop = new List<string>();
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            if (groupBox2.Text == "Kết quả")
             {
-                if (!tenLop.Contains(row.Cells[3].Value.ToString()))
-                {
-                    tenLop.Add(row.Cells[3].Value.ToString());
-                }
-            }
-            
-            for (int k = 1; k <= tenLop.Count; k++)
-            {
-                Microsoft.Office.Interop.Excel.Worksheet Worksheet1 = (Microsoft.Office.Interop.Excel.Worksheet)Workbooks.Worksheets[1];
-                if (tenLop.Count == 1)
-                {
-                    Worksheet1 = (Worksheet)Workbooks.Worksheets[k + 1];
-                }
-                else if(k < tenLop.Count)
-                {
-                    Worksheet1 = Workbooks.Sheets.Add(Type.Missing, Workbooks.Sheets[Workbooks.Sheets.Count], 1, Type.Missing) as Worksheet;
-                }
-                Worksheet1.Name = tenLop[k - 1].ToString();
+                Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook Workbooks = app.Workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
 
-                List<DataGridViewRow> rowFound = dataGridView1.Rows.Cast<DataGridViewRow>().Where(t => t.Cells[3].Value.ToString().Equals(tenLop[k - 1])).ToList();
-
-                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                List<string> tenLop = new List<string>();
+                foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    Worksheet1.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-                }
-                for (int i = 0; i < rowFound.Count; i++)
-                {
-                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (!tenLop.Contains(row.Cells[3].Value.ToString()))
                     {
+                        tenLop.Add(row.Cells[3].Value.ToString());
+                    }
+                }
 
-                        if (rowFound[i].Cells[j].Value != null)
+                for (int k = 1; k <= tenLop.Count; k++)
+                {
+                    Microsoft.Office.Interop.Excel.Worksheet Worksheet1 = (Microsoft.Office.Interop.Excel.Worksheet)Workbooks.Worksheets[1];
+                    if (tenLop.Count == 1)
+                    {
+                        Worksheet1 = (Worksheet)Workbooks.Worksheets[k + 1];
+                    }
+                    else if (k < tenLop.Count)
+                    {
+                        Worksheet1 = Workbooks.Sheets.Add(Type.Missing, Workbooks.Sheets[Workbooks.Sheets.Count], 1, Type.Missing) as Worksheet;
+                    }
+                    Worksheet1.Name = tenLop[k - 1].ToString();
+
+                    List<DataGridViewRow> rowFound = dataGridView1.Rows.Cast<DataGridViewRow>().Where(t => t.Cells[3].Value.ToString().Equals(tenLop[k - 1])).ToList();
+
+                    for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                    {
+                        Worksheet1.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+                    }
+                    for (int i = 0; i < rowFound.Count; i++)
+                    {
+                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
                         {
-                            if (rowFound[i].Cells[3].Value.ToString() == tenLop[k - 1].ToString())
+
+                            if (rowFound[i].Cells[j].Value != null)
                             {
-                                Worksheet1.Cells[i + 2, j + 1] = rowFound[i].Cells[j].Value.ToString();
+                                if (rowFound[i].Cells[3].Value.ToString() == tenLop[k - 1].ToString())
+                                {
+                                    Worksheet1.Cells[i + 2, j + 1] = rowFound[i].Cells[j].Value.ToString();
+                                }
                             }
+                            else Worksheet1.Cells[i + 2, j + 1].Value = "NULL";
+
                         }
-                        else Worksheet1.Cells[i + 2, j + 1].Value = "NULL";
 
                     }
 
+                    Worksheet1.Columns.AutoFit();
+
                 }
 
-                Worksheet1.Columns.AutoFit();
-
+                var saveFileDialoge = new SaveFileDialog();
+                saveFileDialoge.FileName = "output";
+                saveFileDialoge.DefaultExt = ".xlsx";
+                if (saveFileDialoge.ShowDialog() == DialogResult.OK)
+                {
+                    Workbooks.SaveAs(saveFileDialoge.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                }
+                app.Quit();
+                MessageBox.Show("Successfully exported to excel");
             }
-
-            var saveFileDialoge = new SaveFileDialog();
-            saveFileDialoge.FileName = "output";
-            saveFileDialoge.DefaultExt = ".xlsx";
-            if (saveFileDialoge.ShowDialog() == DialogResult.OK)
-            {
-                Workbooks.SaveAs(saveFileDialoge.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            else if(groupBox2.Text== "Danh sách sinh viên" || groupBox2.Text=="Danh sách giảng viên" ) {
+                var saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.InitialDirectory = "C:";
+                saveFileDialog1.Title = "Save as Excel File";
+                saveFileDialog1.FileName = "";
+                saveFileDialog1.Filter = "Excel Files(>2007)|*.xlsx";
+                if (saveFileDialog1.ShowDialog() != DialogResult.Cancel)
+                {
+                    Excel2.Application ExcelApp = new Excel2.Application();
+                    ExcelApp.Application.Workbooks.Add(Type.Missing);
+                    ExcelApp.Columns.ColumnWidth = 20;
+                    for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                    {
+                        ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+                    }
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    {
+                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                        {
+                            ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
+                        }
+                    }
+                    ExcelApp.ActiveWorkbook.SaveCopyAs(saveFileDialog1.FileName.ToString());
+                    ExcelApp.ActiveWorkbook.Saved = true;
+                    ExcelApp.Quit();
+                    MessageBox.Show("successfully exported to excel");
+                }
             }
-            app.Quit();
-            MessageBox.Show("Successfully exported to excel");
+         
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -686,6 +797,7 @@ namespace HuongDanPhanCongDoAnTotNghiep
         {
             using (PCDAEntities db = new PCDAEntities())
             {
+              
                 string MSGV = db.GiaoViens.SingleOrDefault(p => p.TenGV == TenGV).MSGV.ToString();
                 return MSGV;
             }

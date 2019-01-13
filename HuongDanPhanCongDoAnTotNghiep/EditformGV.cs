@@ -40,33 +40,48 @@ namespace HuongDanPhanCongDoAnTotNghiep
                 txbHSNCKH.Text = gv.HSNCKH.ToString();
             }
         }
+        bool Check()
+        {
+            int result;
+            if (txbName.Text.Length < 3 || txbMSGV.Text.Length < 3)
+            {
+                MessageBox.Show("length must be >3");
+                return false;
+            }
+
+            return true;
+        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            using(PCDAEntities db = new PCDAEntities())
+            using (PCDAEntities db = new PCDAEntities())
             {
-                try
+                int result;
+                if (Check() == true)
                 {
-                    GiaoVien gv = db.GiaoViens.SingleOrDefault(p => p.MSGV == txbMSGV.Text);
-                    gv.TenGV = txbName.Text;
-                    gv.SDT = txbSDT.Text;
-                    gv.Email = txbEmail.Text;
-                    gv.NamBatDau = int.Parse(txbYearStart.Text);
-                    gv.HSThamNien = double.Parse(txbHSTN.Text);
-                    gv.HSCM = int.Parse(txbHSCM.Text);
-                    gv.HSNCKH = int.Parse(txbHSNCKH.Text);
-                    db.SaveChanges();
-                    if (ShowForm != null)
+                    try
                     {
-                        ShowForm();
+                        GiaoVien gv = db.GiaoViens.SingleOrDefault(p => p.MSGV == txbMSGV.Text);
+                        gv.TenGV = txbName.Text;
+                        gv.SDT = txbSDT.Text;
+                        gv.Email = txbEmail.Text;
+                        gv.NamBatDau = int.Parse(txbYearStart.Text);
+                        gv.HSThamNien = double.Parse(txbHSTN.Text);
+                        gv.HSCM = int.Parse(txbHSCM.Text);
+                        gv.HSNCKH = int.Parse(txbHSNCKH.Text);
+                        db.SaveChanges();
+                        if (ShowForm != null)
+                        {
+                            ShowForm();
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 }
-                catch
-                {
-
-                }
+                this.Close();
             }
-            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
